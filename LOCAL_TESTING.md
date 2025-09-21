@@ -34,7 +34,7 @@ For complete functionality testing:
 - **GitHub App name**: `GitCDN-Test`
 - **Homepage URL**: `http://localhost:3001`
 - **User authorization callback URL**: `http://localhost:3001/api/auth/callback/github`
-- **Webhook URL**: `http://localhost:3001/api/webhooks/github` (optional)
+- **Webhook URL**: Leave empty (not needed for GitCDN)
 
 **Permissions:**
 - **Repository permissions**:
@@ -60,7 +60,7 @@ GITHUB_APP_ID=your_app_id_from_github
 GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nYOUR_PRIVATE_KEY_CONTENT\n-----END RSA PRIVATE KEY-----"
 GITHUB_APP_CLIENT_ID=your_client_id_from_github
 GITHUB_APP_CLIENT_SECRET=your_client_secret_from_github
-GITHUB_APP_WEBHOOK_SECRET=your_webhook_secret
+# GITHUB_APP_WEBHOOK_SECRET not needed for GitCDN
 
 # NextAuth Configuration
 NEXTAUTH_URL=http://localhost:3001

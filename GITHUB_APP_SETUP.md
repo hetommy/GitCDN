@@ -19,8 +19,8 @@ This guide will help you set up a GitHub App for your GitCDN deployment, providi
 - **GitHub App name**: `GitCDN` (or your preferred name)
 - **Homepage URL**: `https://your-app.vercel.app`
 - **User authorization callback URL**: `https://your-app.vercel.app/api/auth/callback/github`
-- **Webhook URL**: `https://your-app.vercel.app/api/webhooks/github` (optional)
-- **Webhook secret**: Generate a random string (optional)
+- **Webhook URL**: Leave empty (not needed for GitCDN)
+- **Webhook secret**: Leave empty (not needed for GitCDN)
 
 ### **Permissions**
 - **Repository permissions**:
@@ -53,7 +53,7 @@ GITHUB_APP_ID=your_app_id
 GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\nYOUR_PRIVATE_KEY_CONTENT\n-----END RSA PRIVATE KEY-----"
 GITHUB_APP_CLIENT_ID=your_client_id
 GITHUB_APP_CLIENT_SECRET=your_client_secret
-GITHUB_APP_WEBHOOK_SECRET=your_webhook_secret
+# GITHUB_APP_WEBHOOK_SECRET not needed for GitCDN
 
 # NextAuth Configuration
 NEXTAUTH_URL=https://your-app.vercel.app
@@ -97,7 +97,7 @@ The app will automatically:
 - **Repository-specific access**
 - **Automatic token rotation**
 - **Fine-grained permissions**
-- **Webhook support** for real-time updates
+- **Direct API integration** for file operations
 
 ## 📚 **Next Steps**
 

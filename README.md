@@ -9,7 +9,7 @@ A beautiful, modern web application that transforms your GitHub repository into 
 
 ## 🚀 Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_APP_ID,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,GITHUB_APP_WEBHOOK_SECRET,NEXTAUTH_URL,NEXTAUTH_SECRET&envDescription=GitHub%20App%20configuration%20and%20NextAuth%20settings&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/GITHUB_APP_SETUP.md)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_APP_ID,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,NEXTAUTH_URL,NEXTAUTH_SECRET&envDescription=GitHub%20App%20configuration%20and%20NextAuth%20settings&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/GITHUB_APP_SETUP.md)
 
 **One-click deployment to Vercel!** This button will:
 - ✅ Clone the repository to your GitHub account
@@ -202,7 +202,6 @@ GITHUB_APP_ID=your_app_id
 GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
 GITHUB_APP_CLIENT_ID=your_client_id
 GITHUB_APP_CLIENT_SECRET=your_client_secret
-GITHUB_APP_WEBHOOK_SECRET=your_webhook_secret
 NEXTAUTH_URL=https://your-domain.vercel.app
 NEXTAUTH_SECRET=your_production_secret
 ```
