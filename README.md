@@ -7,6 +7,18 @@ A beautiful, modern web application that transforms your GitHub repository into 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-1.0-black?style=for-the-badge)
 
+## 🚀 Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_APP_ID,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,GITHUB_APP_WEBHOOK_SECRET,NEXTAUTH_URL,NEXTAUTH_SECRET&envDescription=GitHub%20App%20configuration%20and%20NextAuth%20settings&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/GITHUB_APP_SETUP.md)
+
+**One-click deployment to Vercel!** This button will:
+- ✅ Clone the repository to your GitHub account
+- ✅ Deploy to Vercel automatically
+- ✅ Set up the project with all necessary configurations
+- ✅ Guide you through GitHub App setup
+
+> **Note**: After deployment, you'll need to create a GitHub App and configure the environment variables. See the [GitHub App Setup Guide](GITHUB_APP_SETUP.md) for detailed instructions.
+
 ## ✨ Features
 
 - 🚀 **Easy File Upload** - Drag and drop files directly to your GitHub repository
@@ -19,19 +31,32 @@ A beautiful, modern web application that transforms your GitHub repository into 
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Deploy to Vercel (Recommended)
 
+**The easiest way to get started!**
+
+1. **Click the "Deploy with Vercel" button above**
+2. **Follow the setup wizard** in Vercel
+3. **Create a GitHub App** (see [GitHub App Setup Guide](GITHUB_APP_SETUP.md))
+4. **Configure environment variables** in Vercel dashboard
+5. **Start using your CDN!**
+
+### Option 2: Local Development
+
+**For developers who want to run locally:**
+
+#### Prerequisites
 - Node.js 18+ 
 - npm or yarn
 - GitHub account
 - GitHub repository for CDN assets
 
-### Installation
+#### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
-   cd gitcdn
+   git clone https://github.com/tommy-rowes-projects/GitCDN.git
+   cd GitCDN
    ```
 
 2. **Install dependencies**
@@ -44,11 +69,9 @@ A beautiful, modern web application that transforms your GitHub repository into 
    cp env.example .env.local
    ```
 
-4. **Configure GitHub OAuth**
-   - Go to GitHub Settings > Developer settings > OAuth Apps
-   - Create a new OAuth App
-   - Set Authorization callback URL to `http://localhost:3000/api/auth/callback/github`
-   - Copy Client ID and Client Secret to your `.env.local`
+4. **Create a GitHub App**
+   - Follow the [GitHub App Setup Guide](GITHUB_APP_SETUP.md)
+   - Configure your `.env.local` with the GitHub App credentials
 
 5. **Start the development server**
    ```bash
@@ -140,7 +163,19 @@ Your files will be accessible via multiple CDN endpoints:
 
 ## 🚀 Deployment
 
-### Deploy to Vercel
+### Deploy to Vercel (One-Click)
+
+**Use the "Deploy with Vercel" button above for the easiest deployment experience!**
+
+The deployment button will:
+1. **Fork the repository** to your GitHub account
+2. **Create a new Vercel project** automatically
+3. **Set up the build configuration** for Next.js
+4. **Guide you through environment variable setup**
+
+### Manual Deployment
+
+If you prefer to deploy manually:
 
 1. **Push to GitHub**
    ```bash
@@ -155,15 +190,19 @@ Your files will be accessible via multiple CDN endpoints:
    - Add environment variables in Vercel dashboard
    - Deploy!
 
-3. **Update GitHub OAuth**
+3. **Update GitHub App URLs**
+   - Update Homepage URL to your Vercel domain
    - Update Authorization callback URL to your Vercel domain
    - Update `NEXTAUTH_URL` in environment variables
 
 ### Environment Variables for Production
 
 ```env
-GITHUB_CLIENT_ID=your_production_client_id
-GITHUB_CLIENT_SECRET=your_production_client_secret
+GITHUB_APP_ID=your_app_id
+GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+GITHUB_APP_CLIENT_ID=your_client_id
+GITHUB_APP_CLIENT_SECRET=your_client_secret
+GITHUB_APP_WEBHOOK_SECRET=your_webhook_secret
 NEXTAUTH_URL=https://your-domain.vercel.app
 NEXTAUTH_SECRET=your_production_secret
 ```
