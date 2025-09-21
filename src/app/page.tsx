@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,7 +25,9 @@ import {
   FileImage,
   File,
   Image as ImageIcon,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  LogIn,
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -39,6 +42,7 @@ import { UploadZone } from "@/components/upload-zone";
 const mockFiles: any[] = [];
 
 export default function Dashboard() {
+  const { data: session, status } = useSession();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchQuery, setSearchQuery] = useState("");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -101,31 +105,54 @@ export default function Dashboard() {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        {/* Authentication Check */}
+        {status === "loading" ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          </div>
+        ) : !session ? (
           <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Total Files</p>
-                  <p className="text-2xl font-bold">0</p>
-                </div>
-                <File className="w-8 h-8 text-blue-500" />
-              </div>
+            <CardContent className="p-12 text-center">
+              <AlertCircle className="w-16 h-16 mx-auto mb-4 text-yellow-500" />
+              <h3 className="text-lg font-medium mb-2">Authentication Required</h3>
+              <p className="text-slate-500 dark:text-slate-400 mb-6">
+                Please sign in with GitHub to access your CDN dashboard
+              </p>
+              <Link href="/auth/signin">
+                <Button>
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Sign in with GitHub
+                </Button>
+              </Link>
             </CardContent>
           </Card>
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Total Size</p>
-                  <p className="text-2xl font-bold">0 MB</p>
-                </div>
-                <ImageIcon className="w-8 h-8 text-green-500" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        ) : (
+          <>
+            {/* Stats Cards */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Total Files</p>
+                      <p className="text-2xl font-bold">0</p>
+                    </div>
+                    <File className="w-8 h-8 text-blue-500" />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Total Size</p>
+                      <p className="text-2xl font-bold">0 MB</p>
+                    </div>
+                    <ImageIcon className="w-8 h-8 text-green-500" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
         {/* Controls */}
         <div className="flex items-center justify-between mb-6">
@@ -295,6 +322,8 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
+        )}
+          </>
         )}
       </main>
 

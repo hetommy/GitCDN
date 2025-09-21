@@ -17,6 +17,9 @@ export async function GET() {
 
     // If we have a token, get repository information
     let repoInfo = null;
+    let connected = false;
+    let connectionError = null;
+    
     if (token) {
       try {
         const octokit = new Octokit({ auth: token });
@@ -34,9 +37,15 @@ export async function GET() {
           html_url: data.html_url,
           clone_url: data.clone_url,
         };
+        connected = true;
       } catch (error) {
         console.error('Failed to fetch repo info:', error);
+        connectionError = error instanceof Error ? error.message : 'Unknown error';
+        connected = false;
       }
+    } else {
+      connectionError = 'No GitHub token provided';
+      connected = false;
     }
 
     return NextResponse.json({
@@ -45,6 +54,8 @@ export async function GET() {
       branch,
       repoInfo,
       configured: true,
+      connected,
+      connectionError,
     });
   } catch (error) {
     console.error('Config API error:', error);
