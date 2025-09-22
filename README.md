@@ -9,15 +9,15 @@ A beautiful, modern web application that transforms your GitHub repository into 
 
 ## 🚀 Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_APP_ID,GITHUB_APP_PRIVATE_KEY,GITHUB_APP_CLIENT_ID,GITHUB_APP_CLIENT_SECRET,NEXTAUTH_URL,NEXTAUTH_SECRET&envDescription=GitHub%20App%20configuration%20and%20NextAuth%20settings&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/GITHUB_APP_SETUP.md)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_OWNER,GITHUB_REPO,GITHUB_BRANCH,GITHUB_TOKEN&envDescription=GitHub%20repository%20configuration%20for%20CDN%20hosting&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/README.md)
 
 **One-click deployment to Vercel!** This button will:
 - ✅ Clone the repository to your GitHub account
 - ✅ Deploy to Vercel automatically
 - ✅ Set up the project with all necessary configurations
-- ✅ Guide you through GitHub App setup
+- ✅ Guide you through GitHub setup
 
-> **Note**: After deployment, you'll need to create a GitHub App and configure the environment variables. See the [GitHub App Setup Guide](GITHUB_APP_SETUP.md) for detailed instructions.
+> **Note**: After deployment, you'll need to create a GitHub Personal Access Token and configure the environment variables. See the setup instructions below.
 
 ## ✨ Features
 
@@ -37,7 +37,7 @@ A beautiful, modern web application that transforms your GitHub repository into 
 
 1. **Click the "Deploy with Vercel" button above**
 2. **Follow the setup wizard** in Vercel
-3. **Create a GitHub App** (see [GitHub App Setup Guide](GITHUB_APP_SETUP.md))
+3. **Create a GitHub Personal Access Token** (see instructions below)
 4. **Configure environment variables** in Vercel dashboard
 5. **Start using your CDN!**
 
@@ -69,16 +69,24 @@ A beautiful, modern web application that transforms your GitHub repository into 
    cp env.example .env.local
    ```
 
-4. **Create a GitHub App**
-   - Follow the [GitHub App Setup Guide](GITHUB_APP_SETUP.md)
-   - Configure your `.env.local` with the GitHub App credentials
+4. **Create a GitHub Personal Access Token**
+   - Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
+   - Click "Generate new token (classic)"
+   - Give it a name like "GitCDN"
+   - Select the `repo` scope
+   - Copy the token and add it to your `.env.local`
 
-5. **Start the development server**
+5. **Configure your repository**
+   - Set `GITHUB_OWNER` to your GitHub username
+   - Set `GITHUB_REPO` to your CDN repository name
+   - Set `GITHUB_BRANCH` to your preferred branch (default: main)
+
+6. **Start the development server**
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
+7. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 🔧 Configuration
@@ -198,10 +206,10 @@ If you prefer to deploy manually:
 ### Environment Variables for Production
 
 ```env
-GITHUB_APP_ID=your_app_id
-GITHUB_APP_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
-GITHUB_APP_CLIENT_ID=your_client_id
-GITHUB_APP_CLIENT_SECRET=your_client_secret
+GITHUB_OWNER=your_github_username
+GITHUB_REPO=your_cdn_repo
+GITHUB_BRANCH=main
+GITHUB_TOKEN=your_github_personal_access_token
 NEXTAUTH_URL=https://your-domain.vercel.app
 NEXTAUTH_SECRET=your_production_secret
 ```
