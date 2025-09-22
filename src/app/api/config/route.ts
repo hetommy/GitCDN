@@ -10,16 +10,19 @@ export async function GET() {
     const token = process.env.GITHUB_TOKEN;
 
     if (!owner || !repo) {
-      return NextResponse.json({ 
-        error: 'GitHub repository not configured' 
-      }, { status: 404 });
+      return NextResponse.json(
+        {
+          error: 'GitHub repository not configured',
+        },
+        { status: 404 }
+      );
     }
 
     // If we have a token, get repository information
     let repoInfo = null;
     let connected = false;
     let connectionError = null;
-    
+
     if (token) {
       try {
         const octokit = new Octokit({ auth: token });
@@ -27,7 +30,7 @@ export async function GET() {
           owner,
           repo,
         });
-        
+
         repoInfo = {
           name: data.name,
           description: data.description,
@@ -40,7 +43,8 @@ export async function GET() {
         connected = true;
       } catch (error) {
         console.error('Failed to fetch repo info:', error);
-        connectionError = error instanceof Error ? error.message : 'Unknown error';
+        connectionError =
+          error instanceof Error ? error.message : 'Unknown error';
         connected = false;
       }
     } else {
@@ -59,8 +63,11 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Config API error:', error);
-    return NextResponse.json({ 
-      error: 'Failed to load configuration' 
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Failed to load configuration',
+      },
+      { status: 500 }
+    );
   }
 }

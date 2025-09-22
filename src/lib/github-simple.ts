@@ -1,5 +1,15 @@
 import { Octokit } from '@octokit/rest';
 
+interface RepositoryInfo {
+  name: string;
+  description: string | null;
+  default_branch: string;
+  size: number;
+  private: boolean;
+  html_url: string;
+  clone_url: string;
+}
+
 // Simple GitHub API wrapper using Personal Access Token
 export class GitHubAPI {
   private octokit: Octokit;
@@ -7,7 +17,12 @@ export class GitHubAPI {
   private repo: string;
   private branch: string;
 
-  constructor(token: string, owner: string, repo: string, branch: string = 'main') {
+  constructor(
+    token: string,
+    owner: string,
+    repo: string,
+    branch: string = 'main'
+  ) {
     this.octokit = new Octokit({ auth: token });
     this.owner = owner;
     this.repo = repo;
@@ -15,7 +30,11 @@ export class GitHubAPI {
   }
 
   // Test connection to GitHub
-  async testConnection(): Promise<{ success: boolean; error?: string; repoInfo?: any }> {
+  async testConnection(): Promise<{
+    success: boolean;
+    error?: string;
+    repoInfo?: RepositoryInfo;
+  }> {
     try {
       const { data } = await this.octokit.repos.get({
         owner: this.owner,
@@ -32,12 +51,15 @@ export class GitHubAPI {
           private: data.private,
           html_url: data.html_url,
           clone_url: data.clone_url,
-        }
+        },
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
-        error: error.message || 'Failed to connect to GitHub'
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to connect to GitHub',
       };
     }
   }
@@ -47,7 +69,7 @@ export class GitHubAPI {
     path: string,
     content: string,
     message: string = `Upload ${path}`
-  ): Promise<{ success: boolean; error?: string; data?: any }> {
+  ): Promise<{ success: boolean; error?: string; data?: unknown }> {
     try {
       // Get the current file content to get the SHA (required for updates)
       let sha: string | undefined;
@@ -58,19 +80,24 @@ export class GitHubAPI {
           path,
           ref: this.branch,
         });
-        
+
         if (Array.isArray(data)) {
           throw new Error('Path is a directory, not a file');
         }
-        
+
         sha = data.sha;
-      } catch (error: any) {
-        if (error.status !== 404) {
+      } catch (error: unknown) {
+        if (
+          error &&
+          typeof error === 'object' &&
+          'status' in error &&
+          error.status !== 404
+        ) {
           throw error;
         }
         // File doesn't exist, that's fine for new files
       }
-      
+
       const { data } = await this.octokit.repos.createOrUpdateFileContents({
         owner: this.owner,
         repo: this.repo,
@@ -80,18 +107,20 @@ export class GitHubAPI {
         branch: this.branch,
         sha, // Include SHA for updates, undefined for new files
       });
-      
+
       return { success: true, data };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
-        error: error.message || 'Failed to upload file'
+        error: error instanceof Error ? error.message : 'Failed to upload file',
       };
     }
   }
 
   // List files in repository
-  async listFiles(path: string = ''): Promise<{ success: boolean; error?: string; files?: any[] }> {
+  async listFiles(
+    path: string = ''
+  ): Promise<{ success: boolean; error?: string; files?: unknown[] }> {
     try {
       const { data } = await this.octokit.repos.getContent({
         owner: this.owner,
@@ -99,22 +128,25 @@ export class GitHubAPI {
         path,
         ref: this.branch,
       });
-      
+
       if (Array.isArray(data)) {
         return { success: true, files: data };
       } else {
         return { success: true, files: [data] };
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
-        error: error.message || 'Failed to list files'
+        error: error instanceof Error ? error.message : 'Failed to list files',
       };
     }
   }
 
   // Delete file from repository
-  async deleteFile(path: string, message: string = `Delete ${path}`): Promise<{ success: boolean; error?: string }> {
+  async deleteFile(
+    path: string,
+    message: string = `Delete ${path}`
+  ): Promise<{ success: boolean; error?: string }> {
     try {
       // Get the current file content to get the SHA
       const { data } = await this.octokit.repos.getContent({
@@ -123,11 +155,11 @@ export class GitHubAPI {
         path,
         ref: this.branch,
       });
-      
+
       if (Array.isArray(data)) {
         throw new Error('Path is a directory, not a file');
       }
-      
+
       await this.octokit.repos.deleteFile({
         owner: this.owner,
         repo: this.repo,
@@ -136,12 +168,12 @@ export class GitHubAPI {
         sha: data.sha,
         branch: this.branch,
       });
-      
+
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
       return {
         success: false,
-        error: error.message || 'Failed to delete file'
+        error: error instanceof Error ? error.message : 'Failed to delete file',
       };
     }
   }
@@ -150,7 +182,7 @@ export class GitHubAPI {
   generateCDNUrls(path: string): { githubRaw: string; jsDelivr: string } {
     const githubRaw = `https://raw.githubusercontent.com/${this.owner}/${this.repo}/${this.branch}/${path}`;
     const jsDelivr = `https://cdn.jsdelivr.net/gh/${this.owner}/${this.repo}@${this.branch}/${path}`;
-    
+
     return { githubRaw, jsDelivr };
   }
 }

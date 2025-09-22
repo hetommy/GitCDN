@@ -1,11 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import {
   Github,
   Settings as SettingsIcon,
@@ -13,11 +19,10 @@ import {
   AlertCircle,
   Link as LinkIcon,
   Save,
-  Key,
   Eye,
   EyeOff,
-  ExternalLink
-} from "lucide-react";
+  ExternalLink,
+} from 'lucide-react';
 
 interface ConfigData {
   owner: string;
@@ -42,10 +47,10 @@ export default function SettingsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showToken, setShowToken] = useState(false);
   const [formData, setFormData] = useState({
-    owner: "",
-    repo: "",
-    branch: "main",
-    token: ""
+    owner: '',
+    repo: '',
+    branch: 'main',
+    token: '',
   });
 
   useEffect(() => {
@@ -58,10 +63,10 @@ export default function SettingsPage() {
       const data = await response.json();
       setConfig(data);
       setFormData({
-        owner: data.owner || "",
-        repo: data.repo || "",
-        branch: data.branch || "main",
-        token: ""
+        owner: data.owner || '',
+        repo: data.repo || '',
+        branch: data.branch || 'main',
+        token: '',
       });
     } catch (error) {
       console.error('Failed to fetch config:', error);
@@ -73,7 +78,9 @@ export default function SettingsPage() {
   const handleSave = async () => {
     // In a real app, you'd save this to your backend
     // For now, we'll just show a message
-    alert("Settings saved! (In a real app, this would update your configuration)");
+    alert(
+      'Settings saved! (In a real app, this would update your configuration)'
+    );
   };
 
   if (isLoading) {
@@ -117,7 +124,7 @@ export default function SettingsPage() {
                 <CheckCircle className="w-5 h-5" />
                 <span className="font-medium">Connected</span>
                 <Badge variant="secondary" className="ml-2">
-                  {config.repoInfo?.private ? "Private" : "Public"}
+                  {config.repoInfo?.private ? 'Private' : 'Public'}
                 </Badge>
               </div>
             ) : (
@@ -147,7 +154,11 @@ export default function SettingsPage() {
                     )}
                   </div>
                   <Button variant="outline" size="sm" asChild>
-                    <a href={config.repoInfo.html_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={config.repoInfo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       View on GitHub
                     </a>
@@ -175,7 +186,9 @@ export default function SettingsPage() {
                 <Input
                   placeholder="your-username"
                   value={formData.owner}
-                  onChange={(e) => setFormData({ ...formData, owner: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, owner: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -185,19 +198,21 @@ export default function SettingsPage() {
                 <Input
                   placeholder="your-cdn-repo"
                   value={formData.repo}
-                  onChange={(e) => setFormData({ ...formData, repo: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, repo: e.target.value })
+                  }
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-2 block">
-                Branch
-              </label>
+              <label className="text-sm font-medium mb-2 block">Branch</label>
               <Input
                 placeholder="main"
                 value={formData.branch}
-                onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, branch: e.target.value })
+                }
               />
             </div>
 
@@ -207,10 +222,12 @@ export default function SettingsPage() {
               </label>
               <div className="relative">
                 <Input
-                  type={showToken ? "text" : "password"}
+                  type={showToken ? 'text' : 'password'}
                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
                   value={formData.token}
-                  onChange={(e) => setFormData({ ...formData, token: e.target.value })}
+                  onChange={e =>
+                    setFormData({ ...formData, token: e.target.value })
+                  }
                   className="pr-10"
                 />
                 <Button
@@ -220,14 +237,18 @@ export default function SettingsPage() {
                   className="absolute right-0 top-0 h-full px-3"
                   onClick={() => setShowToken(!showToken)}
                 >
-                  {showToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showToken ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </Button>
               </div>
               <p className="text-xs text-slate-500 mt-1">
-                Create a token at{" "}
-                <a 
-                  href="https://github.com/settings/tokens" 
-                  target="_blank" 
+                Create a token at{' '}
+                <a
+                  href="https://github.com/settings/tokens"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:underline"
                 >
@@ -240,7 +261,12 @@ export default function SettingsPage() {
 
             <div className="flex items-center justify-between">
               <div className="text-sm text-slate-500">
-                <p>Required permissions: <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">repo</code></p>
+                <p>
+                  Required permissions:{' '}
+                  <code className="bg-slate-100 dark:bg-slate-800 px-1 rounded">
+                    repo
+                  </code>
+                </p>
               </div>
               <Button onClick={handleSave} className="flex items-center gap-2">
                 <Save className="w-4 h-4" />
@@ -265,7 +291,9 @@ export default function SettingsPage() {
             <CardContent>
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm font-medium mb-1 block">GitHub Raw</label>
+                  <label className="text-sm font-medium mb-1 block">
+                    GitHub Raw
+                  </label>
                   <div className="flex items-center gap-2">
                     <Input
                       value={`https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/`}
@@ -278,7 +306,9 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium mb-1 block">jsDelivr</label>
+                  <label className="text-sm font-medium mb-1 block">
+                    jsDelivr
+                  </label>
                   <div className="flex items-center gap-2">
                     <Input
                       value={`https://cdn.jsdelivr.net/gh/${config.owner}/${config.repo}@${config.branch}/`}

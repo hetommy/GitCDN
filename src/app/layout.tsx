@@ -1,22 +1,22 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/components/auth-provider";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
+import { AuthProvider } from '@/components/auth-provider';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "GitHub CDN Manager",
-  description: "Transform your GitHub repository into a powerful CDN for free",
+  title: 'GitHub CDN Manager',
+  description: 'Transform your GitHub repository into a powerful CDN for free',
 };
 
 export default function RootLayout({

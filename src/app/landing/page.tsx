@@ -1,8 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Upload, Github, Link as LinkIcon, FileImage, Settings as SettingsIcon, BarChart3 } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Upload,
+  Github,
+  Link as LinkIcon,
+  FileImage,
+  Settings as SettingsIcon,
+  BarChart3,
+} from 'lucide-react';
 
 export default function Home() {
   return (
@@ -39,10 +50,14 @@ export default function Home() {
             GitCDN - Free GitHub CDN Management
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-            Transform your GitHub repository into a powerful CDN. Upload, manage, and serve your assets with beautiful URLs and analytics.
+            Transform your GitHub repository into a powerful CDN. Upload,
+            manage, and serve your assets with beautiful URLs and analytics.
           </p>
           <div className="flex justify-center space-x-4">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+            >
               <Upload className="w-5 h-5 mr-2" />
               Get Started
             </Button>
@@ -62,7 +77,8 @@ export default function Home() {
               </div>
               <CardTitle>Easy Upload</CardTitle>
               <CardDescription>
-                Drag and drop files directly to your GitHub repository with automatic CDN URL generation.
+                Drag and drop files directly to your GitHub repository with
+                automatic CDN URL generation.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -74,7 +90,8 @@ export default function Home() {
               </div>
               <CardTitle>Instant URLs</CardTitle>
               <CardDescription>
-                Get multiple CDN URLs (GitHub Raw, jsDelivr) with one-click copying and custom domain support.
+                Get multiple CDN URLs (GitHub Raw, jsDelivr) with one-click
+                copying and custom domain support.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -86,7 +103,8 @@ export default function Home() {
               </div>
               <CardTitle>Analytics</CardTitle>
               <CardDescription>
-                Track file usage, bandwidth, and access patterns to optimize your CDN performance.
+                Track file usage, bandwidth, and access patterns to optimize
+                your CDN performance.
               </CardDescription>
             </CardHeader>
           </Card>
@@ -97,25 +115,35 @@ export default function Home() {
           <Card>
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-blue-600 mb-2">0</div>
-              <div className="text-sm text-slate-600 dark:text-slate-300">Files Uploaded</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300">
+                Files Uploaded
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-green-600 mb-2">0</div>
-              <div className="text-sm text-slate-600 dark:text-slate-300">Total Bandwidth</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300">
+                Total Bandwidth
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-purple-600 mb-2">0</div>
-              <div className="text-sm text-slate-600 dark:text-slate-300">CDN Requests</div>
+              <div className="text-sm text-slate-600 dark:text-slate-300">
+                CDN Requests
+              </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">100%</div>
-              <div className="text-sm text-slate-600 dark:text-slate-300">Uptime</div>
+              <div className="text-3xl font-bold text-orange-600 mb-2">
+                100%
+              </div>
+              <div className="text-sm text-slate-600 dark:text-slate-300">
+                Uptime
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -138,7 +166,10 @@ export default function Home() {
             <div className="text-center py-12 text-slate-500 dark:text-slate-400">
               <FileImage className="w-16 h-16 mx-auto mb-4 opacity-50" />
               <p className="text-lg mb-2">No files uploaded yet</p>
-              <p className="text-sm">Connect your GitHub repository and start uploading files to see them here.</p>
+              <p className="text-sm">
+                Connect your GitHub repository and start uploading files to see
+                them here.
+              </p>
             </div>
           </CardContent>
         </Card>
@@ -149,7 +180,9 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-slate-600 dark:text-slate-400">
             <p>Built with Next.js, shadcn/ui, and GitHub API</p>
-            <p className="text-sm mt-2">Free forever • Open source • Deployed on Vercel</p>
+            <p className="text-sm mt-2">
+              Free forever • Open source • Deployed on Vercel
+            </p>
           </div>
         </div>
       </footer>
