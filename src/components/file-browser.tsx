@@ -415,6 +415,8 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                         <Image
                           src={file.download_url}
                           alt={file.name}
+                          width={96}
+                          height={96}
                           className="h-24 object-contain"
                           onError={(e) => {
                             // Fallback to icon if image fails to load
