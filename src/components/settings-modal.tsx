@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -52,13 +52,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [config, setConfig] = useState<ConfigData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (isOpen) {
-      fetchConfig();
-    }
-  }, [isOpen]);
-
-  const fetchConfig = async () => {
+  const fetchConfig = useCallback(async () => {
     try {
       const response = await fetch('/api/config');
       const data = await response.json();
@@ -68,7 +62,13 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchConfig();
+    }
+  }, [isOpen, fetchConfig]);
 
   if (isLoading) {
     return (

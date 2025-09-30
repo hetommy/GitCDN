@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     const treeData = await treeResponse.json();
 
     // Check if file already exists
-    const existingFile = treeData.tree.find((item: any) => item.path === path);
+    const existingFile = treeData.tree.find((item: { path?: string }) => item.path === path);
     if (existingFile) {
       return NextResponse.json({ 
         error: 'File already exists', 

@@ -40,11 +40,17 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
         if (allCompleted && onUploadSuccess) {
           onUploadSuccess(); // Only call success callback if ALL completed
         }
+        
+        // Call onUploadComplete with the current files before clearing
+        if (onUploadComplete) {
+          onUploadComplete(uploadedFiles);
+        }
+        
         // Clear files after processing, regardless of success/failure
         setUploadedFiles([]);
       }
     }
-  }, [uploadedFiles, onUploadSuccess, onUploadingChange]);
+  }, [uploadedFiles, onUploadSuccess, onUploadingChange, onUploadComplete]);
 
   // Notify parent when uploading state changes
   useEffect(() => {
@@ -55,7 +61,7 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const newFiles: UploadedFile[] = acceptedFiles.map(file => ({
-      id: Math.random().toString(36).substr(2, 9),
+      id: Math.random().toString(36).substring(2, 11),
       file,
       status: 'pending',
     }));
@@ -89,7 +95,7 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
     
     for (const fileData of pendingFiles) {
       setUploadedFiles(prev => 
-        prev.map(f => f.id === fileData.id ? { ...f, status: 'uploading' } : f)
+        prev.map(f => f.id === fileData.id ? { ...f, status: 'uploading' as const } : f)
       );
 
       try {
@@ -114,7 +120,7 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
         setUploadedFiles(prev => {
           const updated = prev.map(f => f.id === fileData.id ? { 
             ...f, 
-            status: 'completed',
+            status: 'completed' as const,
             url: result.url
           } : f);
           
@@ -125,7 +131,7 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
         setUploadedFiles(prev => 
           prev.map(f => f.id === fileData.id ? { 
             ...f, 
-            status: 'error',
+            status: 'error' as const,
             error: errorMessage
           } : f)
         );
@@ -137,9 +143,7 @@ export function UploadZone({ onUploadComplete, onUploadSuccess, onUploadingChang
       }
     }
 
-    if (onUploadComplete) {
-      onUploadComplete(uploadedFiles);
-    }
+    // Note: onUploadComplete callback is called in useEffect when all files are processed
   };
 
   // Show loading spinner when uploading
