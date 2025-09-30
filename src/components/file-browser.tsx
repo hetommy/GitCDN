@@ -27,7 +27,7 @@ import {
   Trash2
 } from 'lucide-react';
 
-interface FileItem {
+export interface FileItem {
   name: string;
   size: number;
   sha: string;
@@ -227,7 +227,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
         <CardContent>
           <div className="text-center py-8">
             <p className="text-red-600 mb-4">{error}</p>
-            <Button onClick={fetchFiles} variant="outline">
+            <Button onClick={() => fetchFiles(true)} variant="outline">
               <RefreshCw className="w-4 h-4 mr-2" suppressHydrationWarning />
               Try Again
             </Button>
@@ -311,7 +311,11 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                             const parent = target.parentElement;
                             if (parent) {
                               parent.innerHTML = '';
-                              parent.appendChild(getFileIcon(file.name));
+                              // Create a simple icon fallback
+                              const icon = document.createElement('div');
+                              icon.className = 'w-full h-full flex items-center justify-center';
+                              icon.innerHTML = '📄';
+                              parent.appendChild(icon);
                             }
                           }}
                         />
@@ -332,7 +336,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={(e) => copyToClipboard(file.download_url, e)}
+                              onClick={() => copyToClipboard(file.download_url)}
                             >
                               <Copy className="w-4 h-4" />
                             </Button>
@@ -419,7 +423,11 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                             const parent = target.parentElement;
                             if (parent) {
                               parent.innerHTML = '';
-                              parent.appendChild(getFileIcon(file.name));
+                              // Create a simple icon fallback
+                              const icon = document.createElement('div');
+                              icon.className = 'w-full h-full flex items-center justify-center';
+                              icon.innerHTML = '📄';
+                              parent.appendChild(icon);
                             }
                           }}
                         />
@@ -444,7 +452,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                             <Button
                               variant="secondary"
                               size="sm"
-                              onClick={(e) => copyToClipboard(file.download_url, e)}
+                              onClick={() => copyToClipboard(file.download_url)}
                               className="h-8 w-8 p-0"
                             >
                               <Copy className="w-4 h-4" />

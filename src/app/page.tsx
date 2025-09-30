@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -14,7 +15,7 @@ import {
 import { Upload, Settings as SettingsIcon, RefreshCw, FileX } from 'lucide-react';
 import { UploadZone } from '@/components/upload-zone';
 import { SettingsModal } from '@/components/settings-modal';
-import { FileBrowser } from '@/components/file-browser';
+import { FileBrowser, FileItem } from '@/components/file-browser';
 import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function Dashboard() {
@@ -22,7 +23,7 @@ export default function Dashboard() {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [hasFiles, setHasFiles] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [initialFiles, setInitialFiles] = useState<any[]>([]);
+  const [initialFiles, setInitialFiles] = useState<FileItem[]>([]);
 
   // Check for files on initial load
   useEffect(() => {
@@ -51,9 +52,11 @@ export default function Dashboard() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <img 
+              <Image 
                 src="/git-merge-folder.svg" 
                 alt="Git Merge Folder" 
+                width={24}
+                height={24}
                 className="w-6 h-6 brightness-0 dark:invert" 
                 suppressHydrationWarning 
               />

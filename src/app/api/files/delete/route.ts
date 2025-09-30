@@ -52,8 +52,8 @@ export async function DELETE(request: NextRequest) {
       repo,
       tree: filteredTree.map(item => ({
         path: item.path!,
-        mode: item.mode!,
-        type: item.type!,
+        mode: item.mode! as "100644" | "100755" | "040000" | "160000" | "120000",
+        type: item.type! as "commit" | "blob" | "tree",
         sha: item.sha!,
       })),
       base_tree: treeSha,
