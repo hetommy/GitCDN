@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -54,7 +55,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
   }>({ isOpen: false, fileName: '', fileSha: '' });
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const fetchFiles = async (isRefresh = false) => {
+  const fetchFiles = useCallback(async (isRefresh = false) => {
     try {
       if (isRefresh) {
         setIsRefreshing(true);
@@ -80,7 +81,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
       setIsLoading(false);
       setIsRefreshing(false);
     }
-  };
+  }, [hideLoading, onFilesLoaded]);
 
   useEffect(() => {
     if (initialFiles.length === 0) {
@@ -88,7 +89,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
     } else {
       setIsLoading(false);
     }
-  }, [initialFiles.length]);
+  }, [initialFiles.length, fetchFiles]);
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 B';
@@ -114,7 +115,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
     return <File className="w-4 h-4" />;
   };
 
-  const copyToClipboard = async (url: string, event: React.MouseEvent) => {
+  const copyToClipboard = async (url: string) => {
     try {
       // Try modern clipboard API first
       if (navigator.clipboard && window.isSecureContext) {
@@ -297,9 +298,11 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                   <div className="flex items-center gap-3 flex-1 min-w-0">
                     {isImageFile(file.name) ? (
                       <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                        <img
+                        <Image
                           src={file.download_url}
                           alt={file.name}
+                          width={40}
+                          height={40}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             // Fallback to icon if image fails to load
@@ -405,7 +408,7 @@ export function FileBrowser({ onFilesLoaded, hideLoading = false, initialFiles =
                   <div className="flex flex-col items-center text-center">
                     {isImageFile(file.name) ? (
                       <div className="h-24 flex items-center justify-center mb-3">
-                        <img
+                        <Image
                           src={file.download_url}
                           alt={file.name}
                           className="h-24 object-contain"
