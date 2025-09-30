@@ -15,8 +15,7 @@ A web application which transforms a GitHub repository into a powerful CDN. Buil
 
 ### Deploy to Railway
 
-[[[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/your-template-id?referralCode=your-code)
-](https://railway.com/deploy/AmQmEk?referralCode=YWTwDG&utm_medium=integration&utm_source=template&utm_campaign=generic)](https://railway.com/deploy/AmQmEk?referralCode=YWTwDG&utm_medium=integration&utm_source=template&utm_campaign=generic)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/AmQmEk?referralCode=YWTwDG&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 ### Deploy to Netlify
 
