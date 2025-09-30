@@ -120,3 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Fix toast text contrast for better legibility */
+@layer components {
+  [data-sonner-toast] [data-description] {
+    color: #1e293b !important; /* slate-800 for better contrast in light mode */
+    font-weight: 500 !important;
+  }
+  
+  .dark [data-sonner-toast] [data-description] {
+    color: #f1f5f9 !important; /* slate-100 for dark mode */
+  }
+}

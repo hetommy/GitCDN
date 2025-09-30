@@ -17,6 +17,7 @@ import { UploadZone } from '@/components/upload-zone';
 import { SettingsModal } from '@/components/settings-modal';
 import { FileBrowser, FileItem } from '@/components/file-browser';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { toast } from 'sonner';
 
 export default function Dashboard() {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -24,6 +25,8 @@ export default function Dashboard() {
   const [hasFiles, setHasFiles] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [initialFiles, setInitialFiles] = useState<FileItem[]>([]);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
 
   // Check for files on initial load
   useEffect(() => {
@@ -44,6 +47,28 @@ export default function Dashboard() {
 
     checkFiles();
   }, []);
+
+  const handleUploadSuccess = () => {
+    // Close the modal
+    setIsUploadModalOpen(false);
+    
+    // Show success toast
+    toast.success('Files uploaded successfully!', {
+      description: 'Your files are now available in your GitHub repository.',
+    });
+    
+    // Refresh the file browser
+    setRefreshKey(prev => prev + 1);
+  };
+
+  const handleDuplicateFile = (fileName: string) => {
+    // Close the modal when a duplicate file error occurs
+    setIsUploadModalOpen(false);
+    
+    toast.error('Upload Failed', {
+      description: `"${fileName}" already exists in your repository. Please rename the file or delete the existing one.`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
@@ -71,14 +96,20 @@ export default function Dashboard() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
-                      <DialogHeader>
-                        <DialogTitle>Upload Files</DialogTitle>
-                        <DialogDescription>
-                          Upload files to your GitHub repository. Files will be
-                          accessible directly from GitHub.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <UploadZone />
+                      {!isUploading && (
+                        <DialogHeader>
+                          <DialogTitle>Upload Files</DialogTitle>
+                          <DialogDescription>
+                            Upload files to your GitHub repository. Files will be
+                            accessible directly from GitHub.
+                          </DialogDescription>
+                        </DialogHeader>
+                      )}
+                      <UploadZone 
+                        onUploadSuccess={handleUploadSuccess} 
+                        onUploadingChange={setIsUploading}
+                        onDuplicateFile={handleDuplicateFile}
+                      />
                     </DialogContent>
                   </Dialog>
                   <ThemeToggle />
@@ -122,6 +153,7 @@ export default function Dashboard() {
           {/* File Browser - Only show after initial load */}
           {!isInitialLoad && (
             <FileBrowser 
+              key={refreshKey}
               onFilesLoaded={setHasFiles}
               initialFiles={initialFiles}
             />

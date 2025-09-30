@@ -56,7 +56,6 @@ export async function DELETE(request: NextRequest) {
         type: item.type! as "commit" | "blob" | "tree",
         sha: item.sha!,
       })),
-      base_tree: treeSha,
     });
 
     // Create a commit with the new tree
