@@ -1,28 +1,38 @@
 # GitCDN
 
-A beautiful, modern web application that transforms your GitHub repository into a powerful CDN. Built with Next.js, shadcn/ui, and GitHub API.
+A web application which transforms a GitHub repository into a powerful CDN. Built with Next.js, shadcn/ui, and the GitHub API.
 
 ![GitCDN](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-1.0-black?style=for-the-badge)
 
-## 🚀 Deploy to Vercel
+## 🚀 One-Click Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_OWNER,GITHUB_REPO,GITHUB_BRANCH,GITHUB_TOKEN&envDescription=GitHub%20repository%20configuration%20for%20CDN%20hosting&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/README.md)
+### Deploy to Vercel
 
-**One-click deployment to Vercel!** This button will:
-- ✅ Clone the repository to your GitHub account
-- ✅ Deploy to Vercel automatically
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tommy-rowes-projects/GitCDN&env=GITHUB_OWNER,GITHUB_REPO,GITHUB_BRANCH,GITHUB_TOKEN&envDescription=GitHub%20repository%20configuration%20for%20CDN%20hosting&envLink=https://github.com/tommy-rowes-projects/GitCDN/blob/main/SETUP.md)
+
+### Deploy to Railway
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/your-template-id?referralCode=your-code)
+
+### Deploy to Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/tommy-rowes-projects/GitCDN)
+
+**One-click deployment options!** These buttons will:
+- ✅ Fork the repository to your GitHub account
+- ✅ Deploy to your chosen platform automatically
 - ✅ Set up the project with all necessary configurations
 - ✅ Guide you through GitHub setup
 
-> **Note**: After deployment, you'll need to create a GitHub Personal Access Token and configure the environment variables. See the setup instructions below.
+> **Note**: After deployment, you'll need to create a GitHub Personal Access Token and configure the environment variables. See the [SETUP.md](./SETUP.md) for detailed instructions.
 
 ## ✨ Features
 
 - 🚀 **Easy File Upload** - Drag and drop files directly to your GitHub repository
-- 🔗 **Multiple CDN URLs** - Get GitHub Raw and jsDelivr URLs instantly
+- 🔗 **Direct File Access** - Access your files directly from GitHub
 - 📊 **Analytics Dashboard** - Track file usage and bandwidth
 - 🎨 **Beautiful UI** - Modern interface built with shadcn/ui
 - 🔐 **GitHub OAuth** - Secure authentication with GitHub
@@ -51,7 +61,7 @@ A beautiful, modern web application that transforms your GitHub repository into 
 - GitHub account
 - GitHub repository for CDN assets
 
-#### Installation
+#### Quick Setup
 
 1. **Clone the repository**
    ```bash
@@ -64,30 +74,33 @@ A beautiful, modern web application that transforms your GitHub repository into 
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Configure environment variables**
    ```bash
    cp env.example .env.local
+   # Edit .env.local with your GitHub details
    ```
 
 4. **Create a GitHub Personal Access Token**
-   - Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
-   - Click "Generate new token (classic)"
-   - Give it a name like "GitCDN"
-   - Select the `repo` scope
-   - Copy the token and add it to your `.env.local`
+   - Go to [GitHub Settings → Fine-grained tokens](https://github.com/settings/personal-access-tokens/new?type=fine_grained)
+   - **Token name**: `GitCDN Token`
+   - **Expiration**: Choose your preference (90 days recommended)
+   - **Repository access**: Select "Selected repositories" → Choose your CDN repository
+   - **Repository permissions**:
+     - ✅ **Contents: Read and write**
+     - ✅ **Metadata: Read**
+     - ❌ All other permissions: No access
+   - **Account permissions**: None needed
+   - Click "Generate token" and copy it to your `.env.local`
 
-5. **Configure your repository**
-   - Set `GITHUB_OWNER` to your GitHub username
-   - Set `GITHUB_REPO` to your CDN repository name
-   - Set `GITHUB_BRANCH` to your preferred branch (default: main)
-
-6. **Start the development server**
+5. **Start the development server**
    ```bash
    npm run dev
    ```
 
-7. **Open your browser**
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+> **📖 Detailed Setup**: See [SETUP.md](./SETUP.md) for comprehensive setup instructions.
 
 ## 🔧 Configuration
 
@@ -96,28 +109,19 @@ A beautiful, modern web application that transforms your GitHub repository into 
 Create a `.env.local` file with the following variables:
 
 ```env
-# GitHub OAuth
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-
-# NextAuth
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your_nextauth_secret
-
-# GitHub Repository (optional - can be set in UI)
+# GitHub Repository Configuration (Required)
 GITHUB_OWNER=your_github_username
 GITHUB_REPO=your_cdn_repo
 GITHUB_BRANCH=main
+GITHUB_TOKEN=your_github_personal_access_token
 ```
 
 ### GitHub Repository Setup
 
-1. Create a new public repository on GitHub
-2. Go to Settings page in the app
-3. Enter your repository details:
-   - Repository Owner (your GitHub username)
-   - Repository Name
-   - Branch (usually `main` or `master`)
+1. Create a new public repository on GitHub for your CDN files
+2. Create a GitHub Personal Access Token with `repo` scope
+3. Configure your environment variables in `.env.local`
+4. Start the development server
 
 ## 📁 Project Structure
 
@@ -143,31 +147,30 @@ gitcdn/
 ## 🎯 Usage
 
 ### 1. Configure Repository
-- Go to Settings page
-- Enter your GitHub repository details
-- Test the connection
+- Set up your environment variables in `.env.local`
+- Create a GitHub Personal Access Token
+- Test the connection in the Settings page
 
 ### 2. Upload Files
 - Navigate to Dashboard
 - Drag and drop files or click to select
 - Files are automatically uploaded to your GitHub repository
 
-### 3. Get CDN URLs
+### 3. Access Your Files
 - View uploaded files in the dashboard
-- Click "Copy URL" to get CDN links
-- Choose between GitHub Raw or jsDelivr URLs
+- Click "Copy URL" to get direct file links
+- Files are accessible directly from your GitHub repository
 
 ### 4. Manage Files
 - View file details and usage statistics
 - Delete files when no longer needed
 - Search and filter your assets
 
-## 🔗 CDN URL Formats
+## 🔗 File Access
 
-Your files will be accessible via multiple CDN endpoints:
+Your files will be accessible directly from your GitHub repository:
 
 - **GitHub Raw**: `https://raw.githubusercontent.com/owner/repo/branch/path/to/file`
-- **jsDelivr**: `https://cdn.jsdelivr.net/gh/owner/repo@branch/path/to/file`
 
 ## 🚀 Deployment
 
@@ -255,8 +258,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - [shadcn/ui](https://ui.shadcn.com/) - Beautiful UI components
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
 - [GitHub API](https://docs.github.com/en/rest) - Repository management
-- [jsDelivr](https://www.jsdelivr.com/) - CDN service
-
----
-
-Built with ❤️ using modern web technologies

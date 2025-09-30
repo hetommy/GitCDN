@@ -62,9 +62,8 @@ This guide will get your GitCDN running in **under 5 minutes** using GitHub Pers
 
 ## 🎉 **You're Done!**
 
-Your GitCDN is now live and ready to serve files via:
+Your GitCDN is now live and ready to serve files directly from your GitHub repository:
 - **GitHub Raw**: `https://raw.githubusercontent.com/your-username/your-repo/main/`
-- **jsDelivr**: `https://cdn.jsdelivr.net/gh/your-username/your-repo@main/`
 
 ## 🔧 **Local Development**
 
@@ -122,8 +121,8 @@ If you want to run locally:
 
 ## 🎯 **Next Steps**
 
-- Upload your files and get CDN URLs
-- Integrate the CDN URLs into your projects
+- Upload your files and get direct file URLs
+- Integrate the file URLs into your projects
 - Set up automatic deployments from your build process
 - Monitor your repository for file changes
 

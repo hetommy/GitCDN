@@ -178,12 +178,9 @@ export class GitHubAPI {
     }
   }
 
-  // Generate CDN URLs
-  generateCDNUrls(path: string): { githubRaw: string; jsDelivr: string } {
-    const githubRaw = `https://raw.githubusercontent.com/${this.owner}/${this.repo}/${this.branch}/${path}`;
-    const jsDelivr = `https://cdn.jsdelivr.net/gh/${this.owner}/${this.repo}@${this.branch}/${path}`;
-
-    return { githubRaw, jsDelivr };
+  // Generate file URL
+  generateFileUrl(path: string): string {
+    return `https://raw.githubusercontent.com/${this.owner}/${this.repo}/${this.branch}/${path}`;
   }
 }
 

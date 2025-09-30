@@ -19,8 +19,27 @@
   - Update `src/app/layout.tsx` to include global provider
   - Update dashboard and landing pages to handle drag events
 
+## Railway Deployment Setup
+- **Priority**: High
+- **Status**: Planned
+- **Description**: Set up Railway one-click deployment template
+- **Details**:
+  - Create Railway template from the GitCDN repository
+  - Configure environment variables in Railway template
+  - Update README with working Railway deployment button
+  - Test the complete deployment flow
+- **Steps to Complete**:
+  1. Go to [railway.app](https://railway.app) and sign in
+  2. Create new project from GitHub repository
+  3. Configure environment variables (GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH, GITHUB_TOKEN)
+  4. Go to Settings → Template and create template
+  5. Copy template URL and update README.md
+  6. Test the deployment button works correctly
+- **Files to Modify**:
+  - `README.md` - Update Railway button URL
+  - `SETUP.md` - Add Railway deployment instructions
+
 ## Other Future Enhancements
-- **GitHub OAuth Integration**: Complete authentication setup
 - **File Upload Progress**: Real-time upload progress with GitHub API
 - **CDN URL Generation**: Multiple CDN endpoint support (GitHub Raw, jsDelivr)
 - **File Management**: Delete, rename, and organize files
