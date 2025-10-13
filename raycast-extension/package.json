@@ -1,0 +1,91 @@
+{
+  "name": "gitcdn",
+  "title": "GitCDN",
+  "description": "Manage your GitCDN files directly from Raycast",
+  "version": "1.0.0",
+  "author": "GitCDN",
+  "license": "MIT",
+  "icon": "assets/extension-icon.png",
+  "commands": [
+    {
+      "name": "view-files",
+      "title": "View Files",
+      "description": "Browse and manage your CDN files",
+      "mode": "view",
+      "icon": "assets/view-files.png"
+    },
+    {
+      "name": "upload-file",
+      "title": "Upload File",
+      "description": "Upload a new file to your CDN",
+      "mode": "no-view",
+      "icon": "assets/upload-file.png"
+    },
+    {
+      "name": "delete-file",
+      "title": "Delete File",
+      "description": "Delete a file from your CDN",
+      "mode": "no-view",
+      "icon": "assets/delete-file.png"
+    },
+    {
+      "name": "rename-file",
+      "title": "Rename File",
+      "description": "Rename a file in your CDN",
+      "mode": "no-view",
+      "icon": "assets/rename-file.png"
+    },
+    {
+      "name": "repo-status",
+      "title": "Repository Status",
+      "description": "View repository configuration and status",
+      "mode": "view",
+      "icon": "assets/repo-status.png"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "githubToken",
+      "title": "GitHub Personal Access Token",
+      "description": "Token with 'repo' scope for repository access",
+      "type": "password",
+      "required": true
+    },
+    {
+      "name": "githubOwner",
+      "title": "GitHub Owner",
+      "description": "Your GitHub username or organization name",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "githubRepo",
+      "title": "GitHub Repository",
+      "description": "Repository name where CDN files are stored",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "githubBranch",
+      "title": "GitHub Branch",
+      "description": "Branch to use for CDN files (default: main)",
+      "type": "textfield",
+      "default": "main",
+      "required": false
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.80.0",
+    "@raycast/utils": "^1.9.0",
+    "@octokit/rest": "^22.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "raycast dev",
+    "build": "raycast build",
+    "lint": "raycast lint"
+  }
+}
